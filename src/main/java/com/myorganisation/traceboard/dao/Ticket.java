@@ -1,12 +1,12 @@
-package com.myorganisation.tatkaalseva.dto;
+package com.myorganisation.traceboard.dao;
 
-import com.myorganisation.tatkaalseva.enums.TicketCategory;
-import com.myorganisation.tatkaalseva.enums.TicketPriority;
-import com.myorganisation.tatkaalseva.enums.TicketStatus;
+import com.myorganisation.traceboard.enums.TicketCategory;
+import com.myorganisation.traceboard.enums.TicketPriority;
+import com.myorganisation.traceboard.enums.TicketStatus;
 
 import java.util.Date;
 
-public class TicketOutputDTO {
+public class Ticket {
 
     private Integer id;
     private String name;
@@ -17,4 +17,5 @@ public class TicketOutputDTO {
     private TicketStatus status;
     private TicketCategory category;
     private TicketPriority priority;
+
 }

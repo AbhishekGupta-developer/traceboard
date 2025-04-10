@@ -1,4 +1,4 @@
-package com.myorganisation.tatkaalseva.controller;
+package com.myorganisation.traceboard.controller;
 
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +12,7 @@ public class ServerController {
 
     @GetMapping
     public ResponseEntity<String> serverHealth() {
-        return new ResponseEntity<>("Server is live!", HttpStatusCode.valueOf(200));
+        return new ResponseEntity<>("TraceBoard Server is live!", HttpStatusCode.valueOf(200));
 
     }
 }

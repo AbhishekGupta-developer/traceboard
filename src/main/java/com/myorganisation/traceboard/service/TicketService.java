@@ -1,7 +1,7 @@
-package com.myorganisation.tatkaalseva.service;
+package com.myorganisation.traceboard.service;
 
-import com.myorganisation.tatkaalseva.dto.TicketInputDTO;
-import com.myorganisation.tatkaalseva.dto.TicketOutputDTO;
+import com.myorganisation.traceboard.dto.TicketInputDTO;
+import com.myorganisation.traceboard.dto.TicketOutputDTO;
 
 import java.util.List;
 

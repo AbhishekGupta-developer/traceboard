@@ -1,4 +1,4 @@
-package com.myorganisation.tatkaalseva.enums;
+package com.myorganisation.traceboard.enums;
 
 public enum TicketStatus {
     TO_DO,

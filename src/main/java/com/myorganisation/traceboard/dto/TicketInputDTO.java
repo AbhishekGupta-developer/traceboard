@@ -1,8 +1,8 @@
-package com.myorganisation.tatkaalseva.dto;
+package com.myorganisation.traceboard.dto;
 
-import com.myorganisation.tatkaalseva.enums.TicketCategory;
-import com.myorganisation.tatkaalseva.enums.TicketPriority;
-import com.myorganisation.tatkaalseva.enums.TicketStatus;
+import com.myorganisation.traceboard.enums.TicketCategory;
+import com.myorganisation.traceboard.enums.TicketPriority;
+import com.myorganisation.traceboard.enums.TicketStatus;
 
 public class TicketInputDTO {
 

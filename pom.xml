@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.myorganisation</groupId>
-	<artifactId>tatkaalseva</artifactId>
+	<artifactId>traceboard</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>TatkaalSeva</name>
-	<description>TatkaalSeva is a Ticket Tracking System (backend)</description>
+	<name>TraceBoard</name>
+	<description>TraceBoard is a Ticket Tracking System (backend)</description>
 	<url/>
 	<licenses>
 		<license/>

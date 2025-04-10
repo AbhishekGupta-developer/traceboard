@@ -1,13 +1,13 @@
-package com.myorganisation.tatkaalseva;
+package com.myorganisation.traceboard;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TatkaalSevaApplication {
+public class TraceBoardApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TatkaalSevaApplication.class, args);
+		SpringApplication.run(TraceBoardApplication.class, args);
 	}
 
 }
