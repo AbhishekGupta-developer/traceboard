@@ -1,14 +1,16 @@
 package com.myorganisation.traceboard.dto;
 
-import com.myorganisation.traceboard.enums.TicketCategory;
-import com.myorganisation.traceboard.enums.TicketPriority;
-import com.myorganisation.traceboard.enums.TicketStatus;
+import com.myorganisation.traceboard.model.enums.TicketCategory;
+import com.myorganisation.traceboard.model.enums.TicketPriority;
+import com.myorganisation.traceboard.model.enums.TicketStatus;
+import lombok.Data;
 
+@Data
 public class TicketInputDTO {
 
     private String name;
-    private Integer createdBy;
-    private Integer assignedTo;
+    private Long createdBy;
+    private Long assignedTo;
     private String description;
     private TicketStatus status;
     private TicketCategory category;
