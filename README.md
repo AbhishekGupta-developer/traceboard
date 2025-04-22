@@ -14,7 +14,6 @@
 - 📨 Notifications for ticket updates and assignments
 - 🧩 RESTful APIs for seamless integration
 - 🔐 Secure authentication and authorization (JWT/Spring Security)
-
 ---
 
 ## 🏗️ Tech Stack
