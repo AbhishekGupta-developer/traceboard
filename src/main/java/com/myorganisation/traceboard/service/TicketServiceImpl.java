@@ -32,9 +32,18 @@ public class TicketServiceImpl implements TicketService {
         ticket = ticketRepository.save(ticket);
 
         TicketOutputDTO ticketOutputDTO = new TicketOutputDTO();
+
         ticketOutputDTO.setId(ticket.getId());
         ticketOutputDTO.setName(ticket.getName());
+        ticketOutputDTO.setCreatedBy(ticket.getCreatedBy());
+        ticketOutputDTO.setAssignedTo(ticket.getAssignedTo());
+        ticketOutputDTO.setDescription(ticket.getDescription());
+        ticketOutputDTO.setDateCreated(ticket.getDateCreated());
+        ticketOutputDTO.setStatus(ticket.getStatus());
+        ticketOutputDTO.setCategory(ticket.getCategory());
+        ticketOutputDTO.setPriority(ticket.getPriority());
 
+        return ticketOutputDTO;
     }
 
     @Override
