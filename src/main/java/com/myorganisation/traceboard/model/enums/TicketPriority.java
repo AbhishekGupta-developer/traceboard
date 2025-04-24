@@ -1,4 +1,4 @@
-package com.myorganisation.traceboard.enums;
+package com.myorganisation.traceboard.model.enums;
 
 public enum TicketPriority {
     MIN,
