@@ -6,10 +6,7 @@ import com.myorganisation.traceboard.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/ticket")
@@ -21,5 +18,10 @@ public class TicketController {
     @PostMapping
     public ResponseEntity<TicketOutputDTO> createTicket(@RequestBody TicketInputDTO ticketInputDTO) {
         return new ResponseEntity<>(ticketService.createTicket(ticketInputDTO), HttpStatusCode.valueOf(200));
+    }
+
+    @GetMapping
+    public ResponseEntity<TicketOutputDTO> getTicket(@PathVariable Long id ){
+        return new ResponseEntity<>(ticketService.getTicket(id),HttpStatusCode.valueOf(200));
     }
 }
