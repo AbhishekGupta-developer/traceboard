@@ -11,13 +11,11 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "ticket")
-
-
 public class Ticket {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     private String name;
     private Long createdBy;

@@ -11,11 +11,10 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class TicketServiceImpl  implements TicketService {
+public class TicketServiceImpl implements TicketService {
+
     @Autowired
     TicketRepository ticketRepository;
-
-
 
     @Override
     public TicketOutputDTO createTicket(TicketInputDTO ticketInputDTO) {
@@ -32,25 +31,25 @@ public class TicketServiceImpl  implements TicketService {
 
         ticket = ticketRepository.save(ticket);
 
-          TicketOutputDTO ticketOutputDTO = new TicketOutputDTO();
+        TicketOutputDTO ticketOutputDTO = new TicketOutputDTO();
 
-          ticketOutputDTO.setId(ticket.getId());
-          ticketOutputDTO.setName(ticket.getName());
-          ticketOutputDTO.setCreatedBy(ticket.getCreatedBy());
-          ticketOutputDTO.setAssignedTo(ticket.getAssignedTo());
-          ticketOutputDTO.setDescription(ticket.getDescription());
-          ticketOutputDTO.setDateCreated(ticket.getDateCreated());
-          ticketOutputDTO.setStatus(ticket.getStatus());
-          ticketOutputDTO.setCategory(ticket.getCategory());
-          ticketOutputDTO.setPriority(ticket.getPriority());
+        ticketOutputDTO.setId(ticket.getId());
+        ticketOutputDTO.setName(ticket.getName());
+        ticketOutputDTO.setCreatedBy(ticket.getCreatedBy());
+        ticketOutputDTO.setAssignedTo(ticket.getAssignedTo());
+        ticketOutputDTO.setDescription(ticket.getDescription());
+        ticketOutputDTO.setDateCreated(ticket.getDateCreated());
+        ticketOutputDTO.setStatus(ticket.getStatus());
+        ticketOutputDTO.setCategory(ticket.getCategory());
+        ticketOutputDTO.setPriority(ticket.getPriority());
 
-          return ticketOutputDTO;
+        return ticketOutputDTO;
     }
 
     @Override
     public TicketOutputDTO getTicket(Integer id) {
         return null;
-}
+    }
 
     @Override
     public List<TicketOutputDTO> getAllTickets() {

@@ -6,13 +6,14 @@ import com.myorganisation.traceboard.model.enums.TicketStatus;
 import lombok.Data;
 
 import java.util.Date;
+
 @Data
 public class TicketOutputDTO {
 
-    private Integer id;
+    private Long id;
     private String name;
     private Long createdBy;
-    private Long  assignedTo;
+    private Long assignedTo;
     private String description;
     private Date dateCreated;
     private TicketStatus status;
