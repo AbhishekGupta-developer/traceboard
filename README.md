@@ -30,7 +30,7 @@
 - [Abhishek](https://github.com/AbhishekGupta-developer)
 - [Pranav sharma](https://github.com/pranavcoder2004gitgit )
 - [Shivani](https://github.com/shivani-developer89)
-- []()
+- [Harshdeep Chandra](https://github.com/harshdeepchandra)
 - []()
 
 ## 📦 Getting Started
