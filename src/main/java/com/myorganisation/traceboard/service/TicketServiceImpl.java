@@ -47,8 +47,21 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public TicketOutputDTO getTicket(Integer id) {
-        return null;
+    public TicketOutputDTO getTicket(Long id) {
+        Ticket ticket = ticketRepository.findById(id).orElse(null);
+
+        TicketOutputDTO ticketOutputDTO = TicketOutputDTO.builder()
+                                                .id(ticket.getId())
+                                                .name(ticket.getName())
+                                                .createdBy(ticket.getCreatedBy())
+                                                .assignedTo(ticket.getAssignedTo())
+                                                .description(ticket.getDescription())
+                                                .dateCreated(ticket.getDateCreated())
+                                                .status(ticket.getStatus())
+                                                .category(ticket.getCategory())
+                                                .priority(ticket.getPriority())
+                                            .build();
+        return ticketOutputDTO;
     }
 
     @Override
@@ -57,12 +70,12 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public TicketOutputDTO updateTicket(Integer id, TicketInputDTO ticketInputDTO) {
+    public TicketOutputDTO updateTicket(Long id, TicketInputDTO ticketInputDTO) {
         return null;
     }
 
     @Override
-    public String removeTicket(Integer id) {
+    public String removeTicket(Long id) {
         return "";
     }
 }
