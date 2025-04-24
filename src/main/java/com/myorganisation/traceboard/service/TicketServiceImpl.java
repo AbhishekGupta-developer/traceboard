@@ -5,10 +5,12 @@ import com.myorganisation.traceboard.dto.TicketOutputDTO;
 import com.myorganisation.traceboard.model.Ticket;
 import com.myorganisation.traceboard.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 
+@Service
 public class TicketServiceImpl implements TicketService {
 
     @Autowired
@@ -28,6 +30,11 @@ public class TicketServiceImpl implements TicketService {
         ticket.setPriority(ticketInputDTO.getPriority());
 
         ticket = ticketRepository.save(ticket);
+
+        TicketOutputDTO ticketOutputDTO = new TicketOutputDTO();
+        ticketOutputDTO.setId(ticket.getId());
+        ticketOutputDTO.setName(ticket.getName());
+
     }
 
     @Override
