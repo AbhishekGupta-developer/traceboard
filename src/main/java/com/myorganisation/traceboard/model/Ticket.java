@@ -17,7 +17,6 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class Ticket {
 
     @Id
