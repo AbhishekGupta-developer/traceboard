@@ -132,4 +132,10 @@ public class TicketServiceImpl implements TicketService {
 
         return "Ticket: " + name + " (" + id + "), deleted successfully!";
     }
+
+    @Override
+    public String removeAllTicket() {
+        ticketRepository.deleteAll();
+        return "All tickets deleted successfully";
+    }
 }

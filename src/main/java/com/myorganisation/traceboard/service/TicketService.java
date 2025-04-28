@@ -11,5 +11,6 @@ public interface TicketService {
     List<TicketOutputDTO> getAllTickets();
     TicketOutputDTO updateTicket(Long id, TicketInputDTO ticketInputDTO);
     String removeTicket(Long id);
+    String removeAllTicket();
 
 }
