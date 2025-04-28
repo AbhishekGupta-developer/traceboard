@@ -41,4 +41,9 @@ public class TicketController {
     public ResponseEntity<String> removeTicket(@RequestParam Long id) {
         return new ResponseEntity<>(ticketService.removeTicket(id), HttpStatusCode.valueOf(200));
     }
+
+    @DeleteMapping
+    public  ResponseEntity<String> removeAllTickets (){
+        return new ResponseEntity<>(ticketService.removeAllTickets(), HttpStatusCode.valueOf(200));
+    }
 }
