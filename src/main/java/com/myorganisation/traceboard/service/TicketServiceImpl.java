@@ -66,6 +66,9 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public List<TicketOutputDTO> getAllTickets() {
+        //tickets will come in the form of list
+        List<Ticket> ticketList = ticketRepository.findAll();
+        
         return List.of();
     }
 
