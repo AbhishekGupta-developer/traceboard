@@ -2,6 +2,7 @@ package com.myorganisation.traceboard.controller;
 
 import com.myorganisation.traceboard.dto.TicketInputDTO;
 import com.myorganisation.traceboard.dto.TicketOutputDTO;
+import com.myorganisation.traceboard.model.enums.TicketCategory;
 import com.myorganisation.traceboard.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
@@ -40,5 +41,10 @@ public class TicketController {
     @DeleteMapping
     public ResponseEntity<String> removeTicket(@RequestParam Long id) {
         return new ResponseEntity<>(ticketService.removeTicket(id), HttpStatusCode.valueOf(200));
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<TicketOutputDTO>> searchByCategory(@RequestParam TicketCategory category) {
+        return new ResponseEntity<>(ticketService.searchByCategory(category), HttpStatusCode.valueOf(200));
     }
 }
