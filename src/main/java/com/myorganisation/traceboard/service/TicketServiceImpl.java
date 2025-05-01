@@ -135,13 +135,13 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public List<TicketOutputDTO> searchByCategory(TicketCategory category) {
+    public List<TicketResponseDTO> searchByCategory(TicketCategory category) {
         List<Ticket> ticketList = ticketRepository.findByCategory(category);
 
-        List<TicketOutputDTO> ticketOutputDTOList = new ArrayList<>();
+        List<TicketResponseDTO> ticketOutputDTOList = new ArrayList<>();
 
         for(Ticket ticket : ticketList) {
-            TicketOutputDTO ticketOutputDTO = TicketOutputDTO.builder()
+            TicketResponseDTO ticketOutputDTO = TicketResponseDTO.builder()
                     .id(ticket.getId())
                     .name(ticket.getName())
                     .createdBy(ticket.getCreatedBy())
