@@ -3,6 +3,7 @@ package com.myorganisation.traceboard.service;
 import com.myorganisation.traceboard.dto.TicketRequestDTO;
 import com.myorganisation.traceboard.dto.TicketResponseDTO;
 import com.myorganisation.traceboard.model.Ticket;
+import com.myorganisation.traceboard.model.enums.TicketCategory;
 import com.myorganisation.traceboard.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -131,5 +132,30 @@ public class TicketServiceImpl implements TicketService {
         ticketRepository.deleteById(id);
 
         return "Ticket: " + name + " (" + id + "), deleted successfully!";
+    }
+
+    @Override
+    public List<TicketOutputDTO> searchByCategory(TicketCategory category) {
+        List<Ticket> ticketList = ticketRepository.findByCategory(category);
+
+        List<TicketOutputDTO> ticketOutputDTOList = new ArrayList<>();
+
+        for(Ticket ticket : ticketList) {
+            TicketOutputDTO ticketOutputDTO = TicketOutputDTO.builder()
+                    .id(ticket.getId())
+                    .name(ticket.getName())
+                    .createdBy(ticket.getCreatedBy())
+                    .assignedTo(ticket.getAssignedTo())
+                    .description(ticket.getDescription())
+                    .dateCreated(ticket.getDateCreated())
+                    .status(ticket.getStatus())
+                    .category(ticket.getCategory())
+                    .priority(ticket.getPriority())
+                    .build();
+
+            ticketOutputDTOList.add(ticketOutputDTO);
+        }
+
+        return ticketOutputDTOList;
     }
 }
