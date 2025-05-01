@@ -1,7 +1,7 @@
 package com.myorganisation.traceboard.service;
 
-import com.myorganisation.traceboard.dto.TicketInputDTO;
-import com.myorganisation.traceboard.dto.TicketOutputDTO;
+import com.myorganisation.traceboard.dto.TicketRequestDTO;
+import com.myorganisation.traceboard.dto.TicketResponseDTO;
 import com.myorganisation.traceboard.model.Ticket;
 import com.myorganisation.traceboard.model.enums.TicketCategory;
 import com.myorganisation.traceboard.repository.TicketRepository;
@@ -19,40 +19,40 @@ public class TicketServiceImpl implements TicketService {
     TicketRepository ticketRepository;
 
     @Override
-    public TicketOutputDTO createTicket(TicketInputDTO ticketInputDTO) {
+    public TicketResponseDTO createTicket(TicketRequestDTO ticketRequestDTO) {
         Ticket ticket = new Ticket();
 
-        ticket.setName(ticketInputDTO.getName());
-        ticket.setCreatedBy(ticketInputDTO.getCreatedBy());
-        ticket.setAssignedTo(ticketInputDTO.getAssignedTo());
-        ticket.setDescription(ticketInputDTO.getDescription());
+        ticket.setName(ticketRequestDTO.getName());
+        ticket.setCreatedBy(ticketRequestDTO.getCreatedBy());
+        ticket.setAssignedTo(ticketRequestDTO.getAssignedTo());
+        ticket.setDescription(ticketRequestDTO.getDescription());
         ticket.setDateCreated(new Date());
-        ticket.setStatus(ticketInputDTO.getStatus());
-        ticket.setCategory(ticketInputDTO.getCategory());
-        ticket.setPriority(ticketInputDTO.getPriority());
+        ticket.setStatus(ticketRequestDTO.getStatus());
+        ticket.setCategory(ticketRequestDTO.getCategory());
+        ticket.setPriority(ticketRequestDTO.getPriority());
 
         ticket = ticketRepository.save(ticket);
 
-        TicketOutputDTO ticketOutputDTO = new TicketOutputDTO();
+        TicketResponseDTO ticketResponseDTO = new TicketResponseDTO();
 
-        ticketOutputDTO.setId(ticket.getId());
-        ticketOutputDTO.setName(ticket.getName());
-        ticketOutputDTO.setCreatedBy(ticket.getCreatedBy());
-        ticketOutputDTO.setAssignedTo(ticket.getAssignedTo());
-        ticketOutputDTO.setDescription(ticket.getDescription());
-        ticketOutputDTO.setDateCreated(ticket.getDateCreated());
-        ticketOutputDTO.setStatus(ticket.getStatus());
-        ticketOutputDTO.setCategory(ticket.getCategory());
-        ticketOutputDTO.setPriority(ticket.getPriority());
+        ticketResponseDTO.setId(ticket.getId());
+        ticketResponseDTO.setName(ticket.getName());
+        ticketResponseDTO.setCreatedBy(ticket.getCreatedBy());
+        ticketResponseDTO.setAssignedTo(ticket.getAssignedTo());
+        ticketResponseDTO.setDescription(ticket.getDescription());
+        ticketResponseDTO.setDateCreated(ticket.getDateCreated());
+        ticketResponseDTO.setStatus(ticket.getStatus());
+        ticketResponseDTO.setCategory(ticket.getCategory());
+        ticketResponseDTO.setPriority(ticket.getPriority());
 
-        return ticketOutputDTO;
+        return ticketResponseDTO;
     }
 
     @Override
-    public TicketOutputDTO getTicket(Long id) {
+    public TicketResponseDTO getTicket(Long id) {
         Ticket ticket = ticketRepository.findById(id).orElse(null);
 
-        TicketOutputDTO ticketOutputDTO = TicketOutputDTO.builder()
+        TicketResponseDTO ticketResponseDTO = TicketResponseDTO.builder()
                                                 .id(ticket.getId())
                                                 .name(ticket.getName())
                                                 .createdBy(ticket.getCreatedBy())
@@ -63,17 +63,17 @@ public class TicketServiceImpl implements TicketService {
                                                 .category(ticket.getCategory())
                                                 .priority(ticket.getPriority())
                                             .build();
-        return ticketOutputDTO;
+        return ticketResponseDTO;
     }
 
     @Override
-    public List<TicketOutputDTO> getAllTickets() {
+    public List<TicketResponseDTO> getAllTickets() {
 
         List<Ticket> ticketList = ticketRepository.findAll();
-        List<TicketOutputDTO> ticketOutputDTOList = new ArrayList<>();
+        List<TicketResponseDTO> ticketResponseDTOList = new ArrayList<>();
 
         for(Ticket ticket : ticketList) {
-            TicketOutputDTO ticketOutputDTO = TicketOutputDTO.builder()
+            TicketResponseDTO ticketResponseDTO = TicketResponseDTO.builder()
                                                     .id(ticket.getId())
                                                     .name(ticket.getName())
                                                     .createdBy(ticket.getCreatedBy())
@@ -85,40 +85,40 @@ public class TicketServiceImpl implements TicketService {
                                                     .priority(ticket.getPriority())
                                                 .build();
 
-            ticketOutputDTOList.add(ticketOutputDTO);
+            ticketResponseDTOList.add(ticketResponseDTO);
         }
 
-        return ticketOutputDTOList;
+        return ticketResponseDTOList;
     }
 
     @Override
-    public TicketOutputDTO updateTicket(Long id, TicketInputDTO ticketInputDTO) {
+    public TicketResponseDTO updateTicket(Long id, TicketRequestDTO ticketRequestDTO) {
         Ticket ticket = ticketRepository.findById(id).orElse(null);
 
-        ticket.setName(ticketInputDTO.getName());
-        ticket.setCreatedBy(ticketInputDTO.getCreatedBy());
-        ticket.setAssignedTo(ticketInputDTO.getAssignedTo());
-        ticket.setDescription(ticketInputDTO.getDescription());
+        ticket.setName(ticketRequestDTO.getName());
+        ticket.setCreatedBy(ticketRequestDTO.getCreatedBy());
+        ticket.setAssignedTo(ticketRequestDTO.getAssignedTo());
+        ticket.setDescription(ticketRequestDTO.getDescription());
         ticket.setDateCreated(new Date());
-        ticket.setStatus(ticketInputDTO.getStatus());
-        ticket.setCategory(ticketInputDTO.getCategory());
-        ticket.setPriority(ticketInputDTO.getPriority());
+        ticket.setStatus(ticketRequestDTO.getStatus());
+        ticket.setCategory(ticketRequestDTO.getCategory());
+        ticket.setPriority(ticketRequestDTO.getPriority());
 
         ticket = ticketRepository.save(ticket);
 
-        TicketOutputDTO ticketOutputDTO = new TicketOutputDTO();
+        TicketResponseDTO ticketResponseDTO = new TicketResponseDTO();
 
-        ticketOutputDTO.setId(ticket.getId());
-        ticketOutputDTO.setName(ticket.getName());
-        ticketOutputDTO.setCreatedBy(ticket.getCreatedBy());
-        ticketOutputDTO.setAssignedTo(ticket.getAssignedTo());
-        ticketOutputDTO.setDescription(ticket.getDescription());
-        ticketOutputDTO.setDateCreated(ticket.getDateCreated());
-        ticketOutputDTO.setStatus(ticket.getStatus());
-        ticketOutputDTO.setCategory(ticket.getCategory());
-        ticketOutputDTO.setPriority(ticket.getPriority());
+        ticketResponseDTO.setId(ticket.getId());
+        ticketResponseDTO.setName(ticket.getName());
+        ticketResponseDTO.setCreatedBy(ticket.getCreatedBy());
+        ticketResponseDTO.setAssignedTo(ticket.getAssignedTo());
+        ticketResponseDTO.setDescription(ticket.getDescription());
+        ticketResponseDTO.setDateCreated(ticket.getDateCreated());
+        ticketResponseDTO.setStatus(ticket.getStatus());
+        ticketResponseDTO.setCategory(ticket.getCategory());
+        ticketResponseDTO.setPriority(ticket.getPriority());
 
-        return ticketOutputDTO;
+        return ticketResponseDTO;
     }
 
     @Override
