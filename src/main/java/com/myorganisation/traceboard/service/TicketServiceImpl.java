@@ -138,10 +138,10 @@ public class TicketServiceImpl implements TicketService {
     public List<TicketResponseDTO> searchByCategory(TicketCategory category) {
         List<Ticket> ticketList = ticketRepository.findByCategory(category);
 
-        List<TicketResponseDTO> ticketOutputDTOList = new ArrayList<>();
+        List<TicketResponseDTO> ticketResponseDTOList = new ArrayList<>();
 
         for(Ticket ticket : ticketList) {
-            TicketResponseDTO ticketOutputDTO = TicketResponseDTO.builder()
+            TicketResponseDTO ticketResponseDTO = TicketResponseDTO.builder()
                     .id(ticket.getId())
                     .name(ticket.getName())
                     .createdBy(ticket.getCreatedBy())
@@ -153,9 +153,9 @@ public class TicketServiceImpl implements TicketService {
                     .priority(ticket.getPriority())
                     .build();
 
-            ticketOutputDTOList.add(ticketOutputDTO);
+            ticketResponseDTOList.add(ticketResponseDTO);
         }
 
-        return ticketOutputDTOList;
+        return ticketResponseDTOList;
     }
 }
