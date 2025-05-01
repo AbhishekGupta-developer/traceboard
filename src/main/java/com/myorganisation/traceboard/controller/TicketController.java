@@ -1,7 +1,7 @@
 package com.myorganisation.traceboard.controller;
 
-import com.myorganisation.traceboard.dto.TicketInputDTO;
-import com.myorganisation.traceboard.dto.TicketOutputDTO;
+import com.myorganisation.traceboard.dto.TicketRequestDTO;
+import com.myorganisation.traceboard.dto.TicketResponseDTO;
 import com.myorganisation.traceboard.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
@@ -18,23 +18,23 @@ public class TicketController {
     TicketService ticketService;
 
     @PostMapping
-    public ResponseEntity<TicketOutputDTO> createTicket(@RequestBody TicketInputDTO ticketInputDTO) {
-        return new ResponseEntity<>(ticketService.createTicket(ticketInputDTO), HttpStatusCode.valueOf(200));
+    public ResponseEntity<TicketResponseDTO> createTicket(@RequestBody TicketRequestDTO ticketRequestDTO) {
+        return new ResponseEntity<>(ticketService.createTicket(ticketRequestDTO), HttpStatusCode.valueOf(200));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TicketOutputDTO> getTicket(@PathVariable Long id) {
+    public ResponseEntity<TicketResponseDTO> getTicket(@PathVariable Long id) {
         return new ResponseEntity<>(ticketService.getTicket(id), HttpStatusCode.valueOf(200));
     }
 
     @GetMapping
-    public ResponseEntity<List<TicketOutputDTO>> getAllTickets() {
+    public ResponseEntity<List<TicketResponseDTO>> getAllTickets() {
         return new ResponseEntity<>(ticketService.getAllTickets(), HttpStatusCode.valueOf(200));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TicketOutputDTO> updateTicket(@PathVariable Long id, @RequestBody TicketInputDTO ticketInputDTO) {
-        return new ResponseEntity<>(ticketService.updateTicket(id, ticketInputDTO), HttpStatusCode.valueOf(200));
+    public ResponseEntity<TicketResponseDTO> updateTicket(@PathVariable Long id, @RequestBody TicketRequestDTO ticketRequestDTO) {
+        return new ResponseEntity<>(ticketService.updateTicket(id, ticketRequestDTO), HttpStatusCode.valueOf(200));
     }
 
     @DeleteMapping
