@@ -2,7 +2,6 @@ package com.myorganisation.traceboard.controller;
 
 import com.myorganisation.traceboard.dto.TicketRequestDTO;
 import com.myorganisation.traceboard.dto.TicketResponseDTO;
-import com.myorganisation.traceboard.model.enums.TicketCategory;
 import com.myorganisation.traceboard.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;

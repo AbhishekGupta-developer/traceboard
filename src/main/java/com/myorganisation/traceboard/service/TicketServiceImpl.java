@@ -3,7 +3,6 @@ package com.myorganisation.traceboard.service;
 import com.myorganisation.traceboard.dto.TicketRequestDTO;
 import com.myorganisation.traceboard.dto.TicketResponseDTO;
 import com.myorganisation.traceboard.model.Ticket;
-import com.myorganisation.traceboard.model.enums.TicketCategory;
 import com.myorganisation.traceboard.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -136,4 +135,5 @@ public class TicketServiceImpl implements TicketService {
 
         return ticketResponseDTOList;
     }
+
 }

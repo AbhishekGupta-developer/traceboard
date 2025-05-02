@@ -2,7 +2,6 @@ package com.myorganisation.traceboard.service;
 
 import com.myorganisation.traceboard.dto.TicketRequestDTO;
 import com.myorganisation.traceboard.dto.TicketResponseDTO;
-import com.myorganisation.traceboard.model.enums.TicketCategory;
 
 import java.util.List;
 
