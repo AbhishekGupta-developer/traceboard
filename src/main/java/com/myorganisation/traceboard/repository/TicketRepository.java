@@ -1,7 +1,6 @@
 package com.myorganisation.traceboard.repository;
 
 import com.myorganisation.traceboard.model.Ticket;
-import com.myorganisation.traceboard.model.enums.TicketCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
