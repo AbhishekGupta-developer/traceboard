@@ -44,7 +44,7 @@ public class TicketController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<TicketResponseDTO>> searchByCategory(@RequestParam TicketCategory category) {
-        return new ResponseEntity<>(ticketService.searchByCategory(category), HttpStatusCode.valueOf(200));
+    public ResponseEntity<List<TicketResponseDTO>> searchByQuery(@RequestParam("q") String query) {
+        return new ResponseEntity<>(ticketService.searchByQuery(query), HttpStatusCode.valueOf(200));
     }
 }

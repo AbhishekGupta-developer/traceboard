@@ -52,43 +52,13 @@ public class TicketServiceImpl implements TicketService {
     public TicketResponseDTO getTicket(Long id) {
         Ticket ticket = ticketRepository.findById(id).orElse(null);
 
-        TicketResponseDTO ticketResponseDTO = TicketResponseDTO.builder()
-                                                .id(ticket.getId())
-                                                .name(ticket.getName())
-                                                .createdBy(ticket.getCreatedBy())
-                                                .assignedTo(ticket.getAssignedTo())
-                                                .description(ticket.getDescription())
-                                                .dateCreated(ticket.getDateCreated())
-                                                .status(ticket.getStatus())
-                                                .category(ticket.getCategory())
-                                                .priority(ticket.getPriority())
-                                            .build();
-        return ticketResponseDTO;
+        return convertTicketToTicketResponseDTO(ticket);
     }
 
     @Override
     public List<TicketResponseDTO> getAllTickets() {
 
-        List<Ticket> ticketList = ticketRepository.findAll();
-        List<TicketResponseDTO> ticketResponseDTOList = new ArrayList<>();
-
-        for(Ticket ticket : ticketList) {
-            TicketResponseDTO ticketResponseDTO = TicketResponseDTO.builder()
-                                                    .id(ticket.getId())
-                                                    .name(ticket.getName())
-                                                    .createdBy(ticket.getCreatedBy())
-                                                    .assignedTo(ticket.getAssignedTo())
-                                                    .description(ticket.getDescription())
-                                                    .dateCreated(ticket.getDateCreated())
-                                                    .status(ticket.getStatus())
-                                                    .category(ticket.getCategory())
-                                                    .priority(ticket.getPriority())
-                                                .build();
-
-            ticketResponseDTOList.add(ticketResponseDTO);
-        }
-
-        return ticketResponseDTOList;
+        return convertListOfTicketToListOfTicketResponseDTO(ticketRepository.findAll());
     }
 
     @Override
@@ -135,23 +105,31 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public List<TicketResponseDTO> searchByCategory(TicketCategory category) {
-        List<Ticket> ticketList = ticketRepository.findByCategory(category);
+    public List<TicketResponseDTO> searchByQuery(String query) {
+        return convertListOfTicketToListOfTicketResponseDTO(ticketRepository.searchByQuery(query));
+    }
 
+    //Helper method to convert Ticket to TicketResponseDTO
+    public TicketResponseDTO convertTicketToTicketResponseDTO(Ticket ticket) {
+        return TicketResponseDTO.builder()
+                .id(ticket.getId())
+                .name(ticket.getName())
+                .createdBy(ticket.getCreatedBy())
+                .assignedTo(ticket.getAssignedTo())
+                .description(ticket.getDescription())
+                .dateCreated(ticket.getDateCreated())
+                .status(ticket.getStatus())
+                .category(ticket.getCategory())
+                .priority(ticket.getPriority())
+                .build();
+    }
+
+    //Helper method to convert List<Ticket> to List<TicketResponseDTO>
+    public List<TicketResponseDTO> convertListOfTicketToListOfTicketResponseDTO(List<Ticket> ticketList) {
         List<TicketResponseDTO> ticketResponseDTOList = new ArrayList<>();
 
         for(Ticket ticket : ticketList) {
-            TicketResponseDTO ticketResponseDTO = TicketResponseDTO.builder()
-                    .id(ticket.getId())
-                    .name(ticket.getName())
-                    .createdBy(ticket.getCreatedBy())
-                    .assignedTo(ticket.getAssignedTo())
-                    .description(ticket.getDescription())
-                    .dateCreated(ticket.getDateCreated())
-                    .status(ticket.getStatus())
-                    .category(ticket.getCategory())
-                    .priority(ticket.getPriority())
-                    .build();
+            TicketResponseDTO ticketResponseDTO = convertTicketToTicketResponseDTO(ticket);
 
             ticketResponseDTOList.add(ticketResponseDTO);
         }
