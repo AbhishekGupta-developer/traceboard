@@ -12,6 +12,5 @@ public interface TicketService {
     List<TicketResponseDTO> getAllTickets();
     TicketResponseDTO updateTicket(Long id, TicketRequestDTO ticketRequestDTO);
     String removeTicket(Long id);
-    List<TicketResponseDTO> searchByCategory(TicketCategory category);
-
+    List<TicketResponseDTO> searchByQuery(String query);
 }
