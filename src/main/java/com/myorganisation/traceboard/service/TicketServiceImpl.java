@@ -4,7 +4,6 @@ import com.myorganisation.traceboard.dto.TicketRequestDTO;
 import com.myorganisation.traceboard.dto.TicketResponseDTO;
 import com.myorganisation.traceboard.model.Invoice;
 import com.myorganisation.traceboard.model.Ticket;
-import com.myorganisation.traceboard.repository.InvoiceRepository;
 import com.myorganisation.traceboard.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,9 +17,6 @@ public class TicketServiceImpl implements TicketService {
 
     @Autowired
     TicketRepository ticketRepository;
-
-    @Autowired
-    InvoiceRepository invoiceRepository;
 
     @Override
     public TicketResponseDTO createTicket(TicketRequestDTO ticketRequestDTO) {
@@ -111,7 +107,7 @@ public class TicketServiceImpl implements TicketService {
     public String removeTicket(Long id) {
         String name = ticketRepository.findById(id).orElse(null).getName();
 
-        if(name == null || name.equals(null)) {
+        if(name == null || name.isEmpty()) {
             return "Ticket doesn't exist!";
         }
 
