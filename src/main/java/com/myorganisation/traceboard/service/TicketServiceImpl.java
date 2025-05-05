@@ -2,7 +2,9 @@ package com.myorganisation.traceboard.service;
 
 import com.myorganisation.traceboard.dto.TicketRequestDTO;
 import com.myorganisation.traceboard.dto.TicketResponseDTO;
+import com.myorganisation.traceboard.model.Invoice;
 import com.myorganisation.traceboard.model.Ticket;
+import com.myorganisation.traceboard.repository.InvoiceRepository;
 import com.myorganisation.traceboard.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,9 @@ public class TicketServiceImpl implements TicketService {
     @Autowired
     TicketRepository ticketRepository;
 
+    @Autowired
+    InvoiceRepository invoiceRepository;
+
     @Override
     public TicketResponseDTO createTicket(TicketRequestDTO ticketRequestDTO) {
         Ticket ticket = new Ticket();
@@ -30,7 +35,18 @@ public class TicketServiceImpl implements TicketService {
         ticket.setCategory(ticketRequestDTO.getCategory());
         ticket.setPriority(ticketRequestDTO.getPriority());
 
+        Invoice invoice = new Invoice();
+
+        //Manual Task (before cascading)
+        //invoice = invoiceRepository.save(invoice);
+
+        ticket.setInvoice(invoice);
+        invoice.setTicket(ticket);
+
         ticket = ticketRepository.save(ticket);
+
+        //Manual Task (before cascading)
+        //invoiceRepository.save(invoice);
 
         TicketResponseDTO ticketResponseDTO = new TicketResponseDTO();
 
@@ -43,6 +59,7 @@ public class TicketServiceImpl implements TicketService {
         ticketResponseDTO.setStatus(ticket.getStatus());
         ticketResponseDTO.setCategory(ticket.getCategory());
         ticketResponseDTO.setPriority(ticket.getPriority());
+        ticketResponseDTO.setInvoice(ticket.getInvoice());
 
         return ticketResponseDTO;
     }

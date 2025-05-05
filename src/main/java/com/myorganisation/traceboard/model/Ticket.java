@@ -38,4 +38,7 @@ public class Ticket {
     @Enumerated(EnumType.STRING)
     private TicketPriority priority;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private Invoice invoice;
+
 }
