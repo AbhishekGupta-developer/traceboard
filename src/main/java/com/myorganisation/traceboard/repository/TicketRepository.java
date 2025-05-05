@@ -1,6 +1,9 @@
 package com.myorganisation.traceboard.repository;
 
 import com.myorganisation.traceboard.model.Ticket;
+import com.myorganisation.traceboard.model.enums.TicketCategory;
+import com.myorganisation.traceboard.model.enums.TicketPriority;
+import com.myorganisation.traceboard.model.enums.TicketStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -10,6 +13,11 @@ import java.util.List;
 
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
+
+    //Custom finder methods
+    List<Ticket> findByCategory(TicketCategory category);
+    List<Ticket> findByPriority(TicketPriority priority);
+    List<Ticket> findByStatus(TicketStatus status);
 
     //JPQL
     @Query("SELECT t FROM Ticket t " +
