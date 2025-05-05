@@ -20,16 +20,7 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public TicketResponseDTO createTicket(TicketRequestDTO ticketRequestDTO) {
-        Ticket ticket = new Ticket();
-
-        ticket.setName(ticketRequestDTO.getName());
-        ticket.setCreatedBy(ticketRequestDTO.getCreatedBy());
-        ticket.setAssignedTo(ticketRequestDTO.getAssignedTo());
-        ticket.setDescription(ticketRequestDTO.getDescription());
-        ticket.setDateCreated(new Date());
-        ticket.setStatus(ticketRequestDTO.getStatus());
-        ticket.setCategory(ticketRequestDTO.getCategory());
-        ticket.setPriority(ticketRequestDTO.getPriority());
+        Ticket ticket = copyTicketRequestDTOToTicket(ticketRequestDTO, new Ticket());
 
         Invoice invoice = new Invoice();
 
@@ -44,20 +35,7 @@ public class TicketServiceImpl implements TicketService {
         //Manual Task (before cascading)
         //invoiceRepository.save(invoice);
 
-        TicketResponseDTO ticketResponseDTO = new TicketResponseDTO();
-
-        ticketResponseDTO.setId(ticket.getId());
-        ticketResponseDTO.setName(ticket.getName());
-        ticketResponseDTO.setCreatedBy(ticket.getCreatedBy());
-        ticketResponseDTO.setAssignedTo(ticket.getAssignedTo());
-        ticketResponseDTO.setDescription(ticket.getDescription());
-        ticketResponseDTO.setDateCreated(ticket.getDateCreated());
-        ticketResponseDTO.setStatus(ticket.getStatus());
-        ticketResponseDTO.setCategory(ticket.getCategory());
-        ticketResponseDTO.setPriority(ticket.getPriority());
-        ticketResponseDTO.setInvoice(ticket.getInvoice());
-
-        return ticketResponseDTO;
+        return convertTicketToTicketResponseDTO(ticket);
     }
 
     @Override
@@ -77,6 +55,33 @@ public class TicketServiceImpl implements TicketService {
     public TicketResponseDTO updateTicket(Long id, TicketRequestDTO ticketRequestDTO) {
         Ticket ticket = ticketRepository.findById(id).orElse(null);
 
+        ticket = copyTicketRequestDTOToTicket(ticketRequestDTO, ticket);
+
+        ticket = ticketRepository.save(ticket);
+
+        return convertTicketToTicketResponseDTO(ticket);
+    }
+
+    @Override
+    public String removeTicket(Long id) {
+        Ticket ticket = ticketRepository.findById(id).orElse(null);
+
+        if(ticket == null) {
+            return "Ticket doesn't exist!";
+        } else {
+            String name = ticket.getName();
+            ticketRepository.deleteById(id);
+            return "Ticket: " + name + " (" + id + "), deleted successfully!";
+        }
+    }
+
+    @Override
+    public List<TicketResponseDTO> searchByQuery(String query) {
+        return convertListOfTicketToListOfTicketResponseDTO(ticketRepository.searchByQuery(query));
+    }
+
+    //Helper method to copy TicketRequestDTO to Ticket
+    public Ticket copyTicketRequestDTOToTicket(TicketRequestDTO ticketRequestDTO, Ticket ticket) {
         ticket.setName(ticketRequestDTO.getName());
         ticket.setCreatedBy(ticketRequestDTO.getCreatedBy());
         ticket.setAssignedTo(ticketRequestDTO.getAssignedTo());
@@ -86,39 +91,7 @@ public class TicketServiceImpl implements TicketService {
         ticket.setCategory(ticketRequestDTO.getCategory());
         ticket.setPriority(ticketRequestDTO.getPriority());
 
-        ticket = ticketRepository.save(ticket);
-
-        TicketResponseDTO ticketResponseDTO = new TicketResponseDTO();
-
-        ticketResponseDTO.setId(ticket.getId());
-        ticketResponseDTO.setName(ticket.getName());
-        ticketResponseDTO.setCreatedBy(ticket.getCreatedBy());
-        ticketResponseDTO.setAssignedTo(ticket.getAssignedTo());
-        ticketResponseDTO.setDescription(ticket.getDescription());
-        ticketResponseDTO.setDateCreated(ticket.getDateCreated());
-        ticketResponseDTO.setStatus(ticket.getStatus());
-        ticketResponseDTO.setCategory(ticket.getCategory());
-        ticketResponseDTO.setPriority(ticket.getPriority());
-
-        return ticketResponseDTO;
-    }
-
-    @Override
-    public String removeTicket(Long id) {
-        String name = ticketRepository.findById(id).orElse(null).getName();
-
-        if(name == null || name.isEmpty()) {
-            return "Ticket doesn't exist!";
-        }
-
-        ticketRepository.deleteById(id);
-
-        return "Ticket: " + name + " (" + id + "), deleted successfully!";
-    }
-
-    @Override
-    public List<TicketResponseDTO> searchByQuery(String query) {
-        return convertListOfTicketToListOfTicketResponseDTO(ticketRepository.searchByQuery(query));
+        return ticket;
     }
 
     //Helper method to convert Ticket to TicketResponseDTO
@@ -133,6 +106,7 @@ public class TicketServiceImpl implements TicketService {
                 .status(ticket.getStatus())
                 .category(ticket.getCategory())
                 .priority(ticket.getPriority())
+                .invoice(ticket.getInvoice())
                 .build();
     }
 
