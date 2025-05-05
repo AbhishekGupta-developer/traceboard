@@ -38,7 +38,9 @@ public class Ticket {
     @Enumerated(EnumType.STRING)
     private TicketPriority priority;
 
+    //This side is the owning side of the relationship.
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "invoice_id")
     private Invoice invoice;
 
 }

@@ -14,7 +14,8 @@ public class Invoice {
     private Long id;
     private Double amount;
 
-    @OneToOne
+    //This is the non-owning (or inverse) side.
+    @OneToOne(mappedBy = "invoice")
     @JsonIgnore
     private Ticket ticket;
 
