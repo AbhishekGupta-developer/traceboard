@@ -16,6 +16,10 @@ public class Invoice {
 
     //This is the non-owning (or inverse) side.
     @OneToOne(mappedBy = "invoice")
+
+    //maps the invoice variable from Ticket class,
+    // => reduces attribute redundancy in invoice table
+
     @JsonIgnore
     private Ticket ticket;
 
