@@ -1,5 +1,6 @@
 package com.myorganisation.traceboard.dto;
 
+import com.myorganisation.traceboard.model.Invoice;
 import com.myorganisation.traceboard.model.enums.TicketCategory;
 import com.myorganisation.traceboard.model.enums.TicketPriority;
 import com.myorganisation.traceboard.model.enums.TicketStatus;
@@ -25,4 +26,5 @@ public class TicketResponseDTO {
     private TicketStatus status;
     private TicketCategory category;
     private TicketPriority priority;
+    private Invoice invoice;
 }
