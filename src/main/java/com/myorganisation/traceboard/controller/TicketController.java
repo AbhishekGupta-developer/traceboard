@@ -2,8 +2,10 @@ package com.myorganisation.traceboard.controller;
 
 import com.myorganisation.traceboard.dto.TicketRequestDTO;
 import com.myorganisation.traceboard.dto.TicketResponseDTO;
+import com.myorganisation.traceboard.model.Ticket;
 import com.myorganisation.traceboard.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -45,5 +47,15 @@ public class TicketController {
     @GetMapping("/search")
     public ResponseEntity<List<TicketResponseDTO>> searchByQuery(@RequestParam("q") String query) {
         return new ResponseEntity<>(ticketService.searchByQuery(query), HttpStatusCode.valueOf(200));
+    }
+
+    @GetMapping("/page")
+    public ResponseEntity<Page<Ticket>> getTicketPage(
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "10") Integer size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortOrder
+    ) {
+        return new ResponseEntity<>(ticketService.getTicketPage(page, size, sortBy, sortOrder), HttpStatusCode.valueOf(200));
     }
 }
