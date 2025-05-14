@@ -85,13 +85,15 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public Page getTicketPage(Integer page, Integer size, String sortBy, String sortOrder) {
+    public Page<TicketResponseDTO> getTicketPage(Integer page, Integer size, String sortBy, String sortOrder) {
         Sort sort = sortOrder.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
 
         Pageable pageable = PageRequest.of(page, size, sort);
         Page<Ticket> ticketPage = ticketRepository.findAll(pageable);
 
-        return ticketPage;
+        Page<TicketResponseDTO> ticketResponseDTOPage = ticketPage.map(ticket -> convertTicketToTicketResponseDTO(ticket));
+
+        return ticketResponseDTOPage;
     }
 
     //Helper method to copy TicketRequestDTO to Ticket

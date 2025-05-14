@@ -2,7 +2,6 @@ package com.myorganisation.traceboard.controller;
 
 import com.myorganisation.traceboard.dto.TicketRequestDTO;
 import com.myorganisation.traceboard.dto.TicketResponseDTO;
-import com.myorganisation.traceboard.model.Ticket;
 import com.myorganisation.traceboard.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -50,7 +49,7 @@ public class TicketController {
     }
 
     @GetMapping("/page")
-    public ResponseEntity<Page<Ticket>> getTicketPage(
+    public ResponseEntity<Page<TicketResponseDTO>> getTicketPage(
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "10") Integer size,
             @RequestParam(defaultValue = "id") String sortBy,
