@@ -7,10 +7,14 @@ import com.myorganisation.traceboard.model.UserPhoto;
 import com.myorganisation.traceboard.repository.UserPhotoRepository;
 import com.myorganisation.traceboard.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Base64;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -20,6 +24,7 @@ public class UserServiceImpl implements UserService {
     UserPhotoRepository userPhotoRepository;
 
     @Override
+    @Transactional
     public UserResponseDTO registerUser(UserRequestDTO userRequestDTO, MultipartFile photo) {
         User user = new User();
 
@@ -36,6 +41,7 @@ public class UserServiceImpl implements UserService {
             userPhoto.setPhoto(photo.getBytes());
             userPhoto = userPhotoRepository.save(userPhoto);
             user.setPhotoId(userPhoto.getId());
+            userRepository.save(user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -71,8 +77,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public String getUserPhoto(Long photoId) {
         UserPhoto userPhoto = userPhotoRepository.findById(photoId).orElse(null);
-
-        String photo = userPhoto.getPhoto().toString();
+        String photo = Base64.getEncoder().encodeToString(userPhoto.getPhoto());
 
         return photo;
     }

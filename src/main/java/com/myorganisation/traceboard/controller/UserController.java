@@ -2,6 +2,7 @@ package com.myorganisation.traceboard.controller;
 
 import com.myorganisation.traceboard.dto.UserRequestDTO;
 import com.myorganisation.traceboard.dto.UserResponseDTO;
+import com.myorganisation.traceboard.model.enums.UserRole;
 import com.myorganisation.traceboard.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
@@ -17,7 +18,18 @@ public class UserController {
     UserService userService;
 
     @PostMapping
-    public ResponseEntity<UserResponseDTO> registerStudent(@RequestBody UserRequestDTO userRequestDTO, @PathVariable MultipartFile photo) {
+    public ResponseEntity<UserResponseDTO> registerStudent(
+            @RequestParam String name,
+            @RequestParam String email,
+            @RequestParam Long phone,
+            @RequestParam UserRole role,
+            @RequestParam MultipartFile photo
+            ) {
+        UserRequestDTO userRequestDTO = new UserRequestDTO();
+        userRequestDTO.setName(name);
+        userRequestDTO.setEmail(email);
+        userRequestDTO.setPhone(phone);
+        userRequestDTO.setRole(role);
         return new ResponseEntity<>(userService.registerUser(userRequestDTO, photo), HttpStatusCode.valueOf(201));
     }
 
