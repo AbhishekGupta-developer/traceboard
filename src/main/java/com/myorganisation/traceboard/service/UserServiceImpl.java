@@ -35,15 +35,18 @@ public class UserServiceImpl implements UserService {
 
         userRepository.save(user);
 
-        UserPhoto userPhoto = new UserPhoto();
+        if(photo != null) {
 
-        try {
-            userPhoto.setPhoto(photo.getBytes());
-            userPhoto = userPhotoRepository.save(userPhoto);
-            user.setPhotoId(userPhoto.getId());
-            userRepository.save(user);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            UserPhoto userPhoto = new UserPhoto();
+
+            try {
+                userPhoto.setPhoto(photo.getBytes());
+                userPhoto = userPhotoRepository.save(userPhoto);
+                user.setPhotoId(userPhoto.getId());
+                userRepository.save(user);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         UserResponseDTO userResponseDTO = new UserResponseDTO();
@@ -75,10 +78,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String getUserPhoto(Long photoId) {
-        UserPhoto userPhoto = userPhotoRepository.findById(photoId).orElse(null);
-        String photo = Base64.getEncoder().encodeToString(userPhoto.getPhoto());
+    public String getUserPhoto(Long id) {
+        User user = userRepository.findById(id).orElse(null);
+        if(user == null) {
+            return "User doesn't exist";
+        }
+        Long photoId = user.getPhotoId();
 
-        return photo;
+        if(photoId != null) {
+            UserPhoto userPhoto = userPhotoRepository.findById(photoId).orElse(null);
+            return Base64.getEncoder().encodeToString(userPhoto.getPhoto());
+        }
+
+        return "Profile picture doesn't exist!";
     }
 }

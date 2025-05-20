@@ -7,5 +7,5 @@ import org.springframework.web.multipart.MultipartFile;
 public interface UserService {
     UserResponseDTO registerUser(UserRequestDTO userRequestDTO, MultipartFile photo);
     UserResponseDTO getUser(Long id);
-    String getUserPhoto(Long photoId);
+    String getUserPhoto(Long id);
 }

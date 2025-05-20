@@ -23,7 +23,7 @@ public class UserController {
             @RequestParam String email,
             @RequestParam Long phone,
             @RequestParam UserRole role,
-            @RequestParam MultipartFile photo
+            @RequestParam(required = false) MultipartFile photo
             ) {
         UserRequestDTO userRequestDTO = new UserRequestDTO();
         userRequestDTO.setName(name);
@@ -38,8 +38,8 @@ public class UserController {
         return new ResponseEntity<>(userService.getUser(id), HttpStatusCode.valueOf(200));
     }
 
-    @GetMapping("/photo/{photoId}")
-    public ResponseEntity<String> getUserPhoto(@PathVariable Long photoId) {
-        return new ResponseEntity<>(userService.getUserPhoto(photoId), HttpStatusCode.valueOf(200));
+    @GetMapping("/photo/{userId}")
+    public ResponseEntity<String> getUserPhoto(@PathVariable Long userId) {
+        return new ResponseEntity<>(userService.getUserPhoto(userId), HttpStatusCode.valueOf(200));
     }
 }
