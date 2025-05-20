@@ -85,8 +85,8 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public Page<TicketResponseDTO> getTicketPage(Integer page, Integer size, String sortBy, String sortOrder) {
-        Sort sort = sortOrder.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+    public Page<TicketResponseDTO> getTicketPage(Integer page, Integer size, String sortBy, String orderBy) {
+        Sort sort = orderBy.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
 
         Pageable pageable = PageRequest.of(page, size, sort);
         Page<Ticket> ticketPage = ticketRepository.findAll(pageable);

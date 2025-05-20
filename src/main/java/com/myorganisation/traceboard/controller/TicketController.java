@@ -53,8 +53,8 @@ public class TicketController {
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "10") Integer size,
             @RequestParam(defaultValue = "id") String sortBy,
-            @RequestParam(defaultValue = "asc") String sortOrder
+            @RequestParam(defaultValue = "asc") String orderBy
     ) {
-        return new ResponseEntity<>(ticketService.getTicketPage(page, size, sortBy, sortOrder), HttpStatusCode.valueOf(200));
+        return new ResponseEntity<>(ticketService.getTicketPage(page, size, sortBy, orderBy), HttpStatusCode.valueOf(200));
     }
 }

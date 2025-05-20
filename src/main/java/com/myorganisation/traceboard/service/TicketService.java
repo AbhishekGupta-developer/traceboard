@@ -13,5 +13,5 @@ public interface TicketService {
     TicketResponseDTO updateTicket(Long id, TicketRequestDTO ticketRequestDTO);
     String removeTicket(Long id);
     List<TicketResponseDTO> searchByQuery(String query);
-    Page<TicketResponseDTO> getTicketPage(Integer page, Integer size, String sortBy, String sortOrder);
+    Page<TicketResponseDTO> getTicketPage(Integer page, Integer size, String sortBy, String orderBy);
 }
