@@ -5,7 +5,11 @@ import com.myorganisation.traceboard.dto.TicketResponseDTO;
 import com.myorganisation.traceboard.model.Invoice;
 import com.myorganisation.traceboard.model.Ticket;
 import com.myorganisation.traceboard.repository.TicketRepository;
+import org.springframework.data.domain.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -78,6 +82,18 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public List<TicketResponseDTO> searchByQuery(String query) {
         return convertListOfTicketToListOfTicketResponseDTO(ticketRepository.searchByQuery(query));
+    }
+
+    @Override
+    public Page<TicketResponseDTO> getTicketPage(Integer page, Integer size, String sortBy, String sortOrder) {
+        Sort sort = sortOrder.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+
+        Pageable pageable = PageRequest.of(page, size, sort);
+        Page<Ticket> ticketPage = ticketRepository.findAll(pageable);
+
+        Page<TicketResponseDTO> ticketResponseDTOPage = ticketPage.map(ticket -> convertTicketToTicketResponseDTO(ticket));
+
+        return ticketResponseDTOPage;
     }
 
     //Helper method to copy TicketRequestDTO to Ticket

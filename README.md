@@ -19,7 +19,7 @@
 ## 🏗️ Tech Stack
 
 - **Backend:** Spring Boot, Spring Data JPA, Spring Security, Hibernate
-- **Database:** PostgreSQL / MySQL / H2 (configurable)
+- **Database:** MySQL
 - **API:** RESTful (OpenAPI/Swagger documented)
 - **Authentication:** JWT-based token system
 - **Build Tool:** Maven
@@ -32,7 +32,6 @@
 - [Shivani](https://github.com/shivani-developer89)
 - [Ejaz Ahmed Siddiqui](https://github.com/ejazahmedsiddiqui)
 - [Harshdeep Chandra](https://github.com/harshdeepchandra)
-- []()
 
 ## 📦 Getting Started
 
