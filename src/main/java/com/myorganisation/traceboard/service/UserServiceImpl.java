@@ -33,17 +33,15 @@ public class UserServiceImpl implements UserService {
         user.setEmail(userRequestDTO.getEmail());
         user.setRole(userRequestDTO.getRole());
 
-        userRepository.save(user);
+        user = userRepository.save(user);
 
         if(photo != null) {
-
             UserPhoto userPhoto = new UserPhoto();
-
             try {
                 userPhoto.setPhoto(photo.getBytes());
                 userPhoto = userPhotoRepository.save(userPhoto);
                 user.setPhotoId(userPhoto.getId());
-                userRepository.save(user);
+                user = userRepository.save(user);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
