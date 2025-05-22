@@ -7,12 +7,18 @@ import com.myorganisation.traceboard.model.UserPhoto;
 import com.myorganisation.traceboard.repository.UserPhotoRepository;
 import com.myorganisation.traceboard.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -26,12 +32,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserResponseDTO registerUser(UserRequestDTO userRequestDTO, MultipartFile photo) {
-        User user = new User();
-
-        user.setName(userRequestDTO.getName());
-        user.setPhone(userRequestDTO.getPhone());
-        user.setEmail(userRequestDTO.getEmail());
-        user.setRole(userRequestDTO.getRole());
+        User user = copyUserRequestDTOToUser(userRequestDTO, new User());
 
         user = userRepository.save(user);
 
@@ -47,14 +48,7 @@ public class UserServiceImpl implements UserService {
             }
         }
 
-        UserResponseDTO userResponseDTO = new UserResponseDTO();
-
-        userResponseDTO.setId(user.getId());
-        userResponseDTO.setName(user.getName());
-        userResponseDTO.setPhone(user.getPhone());
-        userResponseDTO.setEmail(user.getEmail());
-        userResponseDTO.setRole(user.getRole());
-        userResponseDTO.setPhotoId(user.getPhotoId());
+        UserResponseDTO userResponseDTO = convertUserToUserResponseDTO(user);
 
         return userResponseDTO;
     }
@@ -62,17 +56,57 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponseDTO getUser(Long id) {
         User user = userRepository.findById(id).orElse(null);
-
-        UserResponseDTO userResponseDTO = new UserResponseDTO();
-
-        userResponseDTO.setId(user.getId());
-        userResponseDTO.setName(user.getName());
-        userResponseDTO.setPhone(user.getPhone());
-        userResponseDTO.setEmail(user.getEmail());
-        userResponseDTO.setRole(user.getRole());
-        userResponseDTO.setPhotoId(user.getPhotoId());
+        UserResponseDTO userResponseDTO = convertUserToUserResponseDTO(user);
 
         return userResponseDTO;
+    }
+
+    @Override
+    public List<UserResponseDTO> getAllUsers() {
+        List<User> userList = userRepository.findAll();
+        List<UserResponseDTO> userResponseDTOList = convertListOfUserToListOfUserResponseDTO(userList);
+
+        return userResponseDTOList;
+    }
+
+    @Override
+    public UserResponseDTO updateUser(Long id, UserRequestDTO userRequestDTO) {
+        User user = userRepository.findById(id).orElse(null);
+
+        user = copyUserRequestDTOToUser(userRequestDTO, user);
+
+        user = userRepository.save(user);
+
+        UserResponseDTO userResponseDTO = convertUserToUserResponseDTO(user);
+
+        return userResponseDTO;
+    }
+
+    @Override
+    public String removeUser(Long id) {
+        User user = userRepository.findById(id).orElse(null);
+        if(user != null) {
+            String name = user.getName();
+            Long photoId = user.getPhotoId();
+
+            if(photoId != null) {
+                userPhotoRepository.deleteById(photoId);
+            }
+            userRepository.deleteById(id);
+            return "User: " + name + " (" + id + "), deleted successfully!";
+        }
+        return "User doesn't exist!";
+    }
+
+    @Override
+    public Page<UserResponseDTO> getUserPage(Integer page, Integer size, String sortBy, String orderBy) {
+        Sort sort = orderBy.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        Page<User> userPage = userRepository.findAll(pageable);
+        Page<UserResponseDTO> userResponseDTOPage = userPage.map(user -> convertUserToUserResponseDTO(user));
+
+        return userResponseDTOPage;
     }
 
     @Override
@@ -90,4 +124,39 @@ public class UserServiceImpl implements UserService {
 
         return "Profile picture doesn't exist!";
     }
+
+    //Helper method to copy UserRequestDTO to User
+    public User copyUserRequestDTOToUser(UserRequestDTO userRequestDTO, User user) {
+        user.setName(userRequestDTO.getName());
+        user.setPhone(userRequestDTO.getPhone());
+        user.setEmail(userRequestDTO.getEmail());
+        user.setRole(userRequestDTO.getRole());
+
+        return user;
+    }
+
+    //Helper method to convert User to UserResponseDTO
+    public UserResponseDTO convertUserToUserResponseDTO(User user) {
+        return UserResponseDTO.builder()
+                .id(user.getId())
+                .name(user.getName())
+                .phone(user.getPhone())
+                .email(user.getEmail())
+                .role(user.getRole())
+                .build();
+    }
+
+    //Helper method to convert List<User> to List<UserResponseDTO>
+    public List<UserResponseDTO> convertListOfUserToListOfUserResponseDTO(List<User> userList) {
+        List<UserResponseDTO> userResponseDTOList = new ArrayList<>();
+
+        for(User user : userList) {
+            UserResponseDTO userResponseDTO = convertUserToUserResponseDTO(user);
+
+            userResponseDTOList.add(userResponseDTO);
+        }
+
+        return userResponseDTOList;
+    }
+
 }
