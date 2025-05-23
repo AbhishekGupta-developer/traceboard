@@ -18,7 +18,7 @@ public class UserController {
     UserService userService;
 
     @PostMapping
-    public ResponseEntity<UserResponseDTO> registerStudent(
+    public ResponseEntity<UserResponseDTO> registerUser(
             @RequestParam String name,
             @RequestParam String email,
             @RequestParam Long phone,
