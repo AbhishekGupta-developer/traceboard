@@ -12,9 +12,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost",
+					"raw": "{{host}}/",
 					"host": [
-						"localhost"
+						"{{host}}"
+					],
+					"path": [
+						""
 					]
 				}
 			},
@@ -30,7 +33,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Test2\",\r\n    \"createdBy\": \"123\",\r\n    \"assignedTo\": \"456\",\r\n    \"description\": \"It's a first test Ticket!\",\r\n    \"status\": \"TO_DO\",\r\n    \"category\": \"BUG\",\r\n    \"priority\": \"NORM\"\r\n}",
+					"raw": "{\r\n    \"name\": \"TESTING ON AWS RDS\",\r\n    \"createdBy\": \"123\",\r\n    \"assignedTo\": \"456\",\r\n    \"description\": \"It's a first test Ticket!\",\r\n    \"status\": \"TO_DO\",\r\n    \"category\": \"BUG\",\r\n    \"priority\": \"NORM\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -38,9 +41,9 @@
 					}
 				},
 				"url": {
-					"raw": "localhost/ticket",
+					"raw": "{{host}}/ticket",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
 					"path": [
 						"ticket"
@@ -58,13 +61,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost/ticket/7",
+					"raw": "{{host}}/ticket/2",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
 					"path": [
 						"ticket",
-						"7"
+						"2"
 					]
 				}
 			},
@@ -79,9 +82,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost/ticket",
+					"raw": "{{host}}/ticket",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
 					"path": [
 						"ticket"
@@ -100,7 +103,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Test5\",\r\n    \"createdBy\": \"123\",\r\n    \"assignedTo\": \"456\",\r\n    \"description\": \"It's a fifth-I test Ticket!\",\r\n    \"status\": \"TO_DO\",\r\n    \"category\": \"BUG\",\r\n    \"priority\": \"MAX\"\r\n}",
+					"raw": "{\r\n    \"name\": \"FINALTEST2025\",\r\n    \"createdBy\": \"123\",\r\n    \"assignedTo\": \"456\",\r\n    \"description\": \"It's a description of FINALTEST2025 ticket!\",\r\n    \"status\": \"TO_DO\",\r\n    \"category\": \"BUG\",\r\n    \"priority\": \"NORM\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -108,13 +111,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost/ticket/5",
+					"raw": "{{host}}/ticket/7",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
 					"path": [
 						"ticket",
-						"5"
+						"7"
 					]
 				}
 			},
@@ -129,9 +132,9 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost/ticket?id=5",
+					"raw": "{{host}}/ticket?id=51",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
 					"path": [
 						"ticket"
@@ -139,7 +142,7 @@
 					"query": [
 						{
 							"key": "id",
-							"value": "5"
+							"value": "51"
 						}
 					]
 				}
@@ -155,9 +158,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost/ticket/search?q=It's a test Tic",
+					"raw": "{{host}}/ticket/search?q=FINALTEST2025",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
 					"path": [
 						"ticket",
@@ -166,7 +169,55 @@
 					"query": [
 						{
 							"key": "q",
-							"value": "It's a test Tic"
+							"value": "FINALTEST2025"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "page",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/ticket/page?page=0&size=10&sortBy=id&sortOrder=asc",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"ticket",
+						"page"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						},
+						{
+							"key": "sortBy",
+							"value": "id"
+						},
+						{
+							"key": "sortOrder",
+							"value": "asc"
 						}
 					]
 				}
