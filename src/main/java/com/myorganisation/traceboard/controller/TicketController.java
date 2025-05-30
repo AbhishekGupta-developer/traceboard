@@ -1,5 +1,6 @@
 package com.myorganisation.traceboard.controller;
 
+import com.myorganisation.traceboard.dto.ErrorResponseDTO;
 import com.myorganisation.traceboard.dto.TicketRequestDTO;
 import com.myorganisation.traceboard.dto.TicketResponseDTO;
 import com.myorganisation.traceboard.service.TicketService;
@@ -9,6 +10,8 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -24,8 +27,16 @@ public class TicketController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TicketResponseDTO> getTicket(@PathVariable Long id) {
-        return new ResponseEntity<>(ticketService.getTicket(id), HttpStatusCode.valueOf(200));
+    public ResponseEntity<?> getTicket(@PathVariable Long id) {
+        TicketResponseDTO ticketResponseDTO = ticketService.getTicket(id);
+        if(ticketResponseDTO == null) {
+            LocalDateTime localDateTime = LocalDateTime.now();
+            String message = "Ticket not found.";
+            String details = "Ticket id: " + id + " doesn't exist.";
+            ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(localDateTime, message, details);
+            return new ResponseEntity<>(errorResponseDTO, HttpStatusCode.valueOf(404));
+        }
+        return new ResponseEntity<>(ticketResponseDTO, HttpStatusCode.valueOf(200));
     }
 
     @GetMapping
@@ -34,13 +45,29 @@ public class TicketController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TicketResponseDTO> updateTicket(@PathVariable Long id, @RequestBody TicketRequestDTO ticketRequestDTO) {
-        return new ResponseEntity<>(ticketService.updateTicket(id, ticketRequestDTO), HttpStatusCode.valueOf(200));
+    public ResponseEntity<?> updateTicket(@PathVariable Long id, @RequestBody TicketRequestDTO ticketRequestDTO) {
+        TicketResponseDTO ticketResponseDTO = ticketService.updateTicket(id, ticketRequestDTO);
+        if(ticketResponseDTO == null) {
+            LocalDateTime localDateTime = LocalDateTime.now();
+            String message = "Ticket not found.";
+            String details = "Ticket id: " + id + " doesn't exist.";
+            ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(localDateTime, message, details);
+            return new ResponseEntity<>(errorResponseDTO, HttpStatusCode.valueOf(404));
+        }
+        return new ResponseEntity<>(ticketResponseDTO, HttpStatusCode.valueOf(200));
     }
 
     @DeleteMapping
-    public ResponseEntity<String> removeTicket(@RequestParam Long id) {
-        return new ResponseEntity<>(ticketService.removeTicket(id), HttpStatusCode.valueOf(200));
+    public ResponseEntity<?> removeTicket(@RequestParam Long id) {
+        String response = ticketService.removeTicket(id);
+        if(response == null) {
+            LocalDateTime localDateTime = LocalDateTime.now();
+            String message = "Ticket not found.";
+            String details = "Ticket id: " + id + " doesn't exist.";
+            ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(localDateTime, message, details);
+            return new ResponseEntity<>(errorResponseDTO, HttpStatusCode.valueOf(404));
+        }
+        return new ResponseEntity<>(response, HttpStatusCode.valueOf(200));
     }
 
     @GetMapping("/search")

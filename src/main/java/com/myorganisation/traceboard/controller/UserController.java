@@ -1,7 +1,9 @@
 package com.myorganisation.traceboard.controller;
 
+import com.myorganisation.traceboard.dto.ErrorResponseDTO;
 import com.myorganisation.traceboard.dto.UserRequestDTO;
 import com.myorganisation.traceboard.dto.UserResponseDTO;
+import com.myorganisation.traceboard.exceptions.UserDoesNotExist;
 import com.myorganisation.traceboard.model.enums.UserRole;
 import com.myorganisation.traceboard.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -37,8 +40,17 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserResponseDTO> getUser(@PathVariable Long id) {
-        return new ResponseEntity<>(userService.getUser(id), HttpStatusCode.valueOf(200));
+    public ResponseEntity<?> getUser(@PathVariable Long id) {
+        try {
+            return new ResponseEntity<>(userService.getUser(id), HttpStatusCode.valueOf(200));
+        } catch(UserDoesNotExist e) {
+            LocalDateTime localDateTime = LocalDateTime.now();
+            String message = "User not found.";
+            String details = "User id: " + id + " doesn't exist.";
+            ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(localDateTime, message, details);
+            return new ResponseEntity<>(errorResponseDTO, HttpStatusCode.valueOf(404));
+        }
+
     }
 
     @GetMapping
