@@ -6,8 +6,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
-public class
-TraceBoardApplication {
+public class TraceBoardApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TraceBoardApplication.class, args);

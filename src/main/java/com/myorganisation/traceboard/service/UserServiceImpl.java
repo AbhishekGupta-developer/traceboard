@@ -2,6 +2,7 @@ package com.myorganisation.traceboard.service;
 
 import com.myorganisation.traceboard.dto.UserRequestDTO;
 import com.myorganisation.traceboard.dto.UserResponseDTO;
+import com.myorganisation.traceboard.exceptions.UserDoesNotExist;
 import com.myorganisation.traceboard.model.User;
 import com.myorganisation.traceboard.model.UserPhoto;
 import com.myorganisation.traceboard.repository.UserPhotoRepository;
@@ -54,8 +55,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponseDTO getUser(Long id) {
+    public UserResponseDTO getUser(Long id) throws UserDoesNotExist {
         User user = userRepository.findById(id).orElse(null);
+        if(user == null) {
+            throw new UserDoesNotExist();
+        }
         UserResponseDTO userResponseDTO = convertUserToUserResponseDTO(user);
 
         return userResponseDTO;

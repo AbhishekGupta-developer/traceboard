@@ -45,6 +45,9 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public TicketResponseDTO getTicket(Long id) {
         Ticket ticket = ticketRepository.findById(id).orElse(null);
+        if(ticket == null) {
+            return null;
+        }
 
         return convertTicketToTicketResponseDTO(ticket);
     }
@@ -59,6 +62,10 @@ public class TicketServiceImpl implements TicketService {
     public TicketResponseDTO updateTicket(Long id, TicketRequestDTO ticketRequestDTO) {
         Ticket ticket = ticketRepository.findById(id).orElse(null);
 
+        if(ticket == null) {
+            return null;
+        }
+
         ticket = copyTicketRequestDTOToTicket(ticketRequestDTO, ticket);
 
         ticket = ticketRepository.save(ticket);
@@ -71,7 +78,7 @@ public class TicketServiceImpl implements TicketService {
         Ticket ticket = ticketRepository.findById(id).orElse(null);
 
         if(ticket == null) {
-            return "Ticket doesn't exist!";
+            return null;
         } else {
             String name = ticket.getName();
             ticketRepository.deleteById(id);
