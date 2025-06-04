@@ -40,17 +40,8 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getUser(@PathVariable Long id) {
-        try {
-            return new ResponseEntity<>(userService.getUser(id), HttpStatusCode.valueOf(200));
-        } catch(UserDoesNotExist e) {
-            LocalDateTime localDateTime = LocalDateTime.now();
-            String message = "User not found.";
-            String details = "User id: " + id + " doesn't exist.";
-            ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(localDateTime, message, details);
-            return new ResponseEntity<>(errorResponseDTO, HttpStatusCode.valueOf(404));
-        }
-
+    public ResponseEntity<UserResponseDTO> getUser(@PathVariable Long id) {
+        return new ResponseEntity<>(userService.getUser(id), HttpStatusCode.valueOf(200));
     }
 
     @GetMapping

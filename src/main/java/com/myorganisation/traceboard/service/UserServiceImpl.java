@@ -55,11 +55,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponseDTO getUser(Long id) throws UserDoesNotExist {
-        User user = userRepository.findById(id).orElse(null);
-        if(user == null) {
-            throw new UserDoesNotExist();
-        }
+    public UserResponseDTO getUser(Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new UserDoesNotExist("User id: " + id + " not found."));
         UserResponseDTO userResponseDTO = convertUserToUserResponseDTO(user);
 
         return userResponseDTO;
@@ -75,7 +72,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponseDTO updateUser(Long id, UserRequestDTO userRequestDTO) {
-        User user = userRepository.findById(id).orElse(null);
+        User user = userRepository.findById(id).orElseThrow(() -> new UserDoesNotExist("User id: " + id + " not found."));
 
         user = copyUserRequestDTOToUser(userRequestDTO, user);
 
@@ -88,18 +85,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String removeUser(Long id) {
-        User user = userRepository.findById(id).orElse(null);
-        if(user != null) {
-            String name = user.getName();
-            Long photoId = user.getPhotoId();
+        User user = userRepository.findById(id).orElseThrow(() -> new UserDoesNotExist("User id: " + id + " not found."));
 
-            if(photoId != null) {
-                userPhotoRepository.deleteById(photoId);
-            }
-            userRepository.deleteById(id);
-            return "User: " + name + " (" + id + "), deleted successfully!";
+        String name = user.getName();
+        Long photoId = user.getPhotoId();
+
+        if (photoId != null) {
+            userPhotoRepository.deleteById(photoId);
         }
-        return "User doesn't exist!";
+        userRepository.deleteById(id);
+
+        return "User: " + name + " (" + id + "), deleted successfully!";
     }
 
     @Override
@@ -115,10 +111,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String getUserPhoto(Long id) {
-        User user = userRepository.findById(id).orElse(null);
-        if(user == null) {
-            return "User doesn't exist";
-        }
+        User user = userRepository.findById(id).orElseThrow(() -> new UserDoesNotExist("User id: " + id + " not found."));
         Long photoId = user.getPhotoId();
 
         if(photoId != null) {

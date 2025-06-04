@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface UserService {
     UserResponseDTO registerUser(UserRequestDTO userRequestDTO, MultipartFile photo);
-    UserResponseDTO getUser(Long id) throws UserDoesNotExist;
+    UserResponseDTO getUser(Long id);
     List<UserResponseDTO> getAllUsers();
     UserResponseDTO updateUser(Long id, UserRequestDTO userRequestDTO);
     String removeUser(Long id);
