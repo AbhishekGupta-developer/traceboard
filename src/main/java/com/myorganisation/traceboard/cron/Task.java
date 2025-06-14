@@ -2,7 +2,6 @@ package com.myorganisation.traceboard.cron;
 
 import com.myorganisation.traceboard.controller.ServerController;
 import com.sun.management.OperatingSystemMXBean;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 

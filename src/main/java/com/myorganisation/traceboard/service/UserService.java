@@ -2,7 +2,6 @@ package com.myorganisation.traceboard.service;
 
 import com.myorganisation.traceboard.dto.UserRequestDTO;
 import com.myorganisation.traceboard.dto.UserResponseDTO;
-import com.myorganisation.traceboard.exceptions.UserDoesNotExist;
 import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
 

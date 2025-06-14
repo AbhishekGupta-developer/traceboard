@@ -1,9 +1,7 @@
 package com.myorganisation.traceboard.controller;
 
-import com.myorganisation.traceboard.dto.ErrorResponseDTO;
 import com.myorganisation.traceboard.dto.UserRequestDTO;
 import com.myorganisation.traceboard.dto.UserResponseDTO;
-import com.myorganisation.traceboard.exceptions.UserDoesNotExist;
 import com.myorganisation.traceboard.model.enums.UserRole;
 import com.myorganisation.traceboard.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
