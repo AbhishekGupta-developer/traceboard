@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.Instant;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("api/")
 public class ServerController {
 
     private final Instant serverStartTime;
