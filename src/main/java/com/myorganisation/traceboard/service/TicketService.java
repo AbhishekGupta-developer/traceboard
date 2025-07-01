@@ -1,7 +1,7 @@
 package com.myorganisation.traceboard.service;
 
-import com.myorganisation.traceboard.dto.TicketRequestDTO;
-import com.myorganisation.traceboard.dto.TicketResponseDTO;
+import com.myorganisation.traceboard.dto.request.TicketRequestDTO;
+import com.myorganisation.traceboard.dto.response.TicketResponseDTO;
 import org.springframework.data.domain.Page;
 
 import java.util.List;

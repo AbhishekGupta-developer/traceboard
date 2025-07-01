@@ -1,7 +1,7 @@
 package com.myorganisation.traceboard.service;
 
-import com.myorganisation.traceboard.dto.TicketRequestDTO;
-import com.myorganisation.traceboard.dto.TicketResponseDTO;
+import com.myorganisation.traceboard.dto.request.TicketRequestDTO;
+import com.myorganisation.traceboard.dto.response.TicketResponseDTO;
 import com.myorganisation.traceboard.model.Invoice;
 import com.myorganisation.traceboard.model.Ticket;
 import com.myorganisation.traceboard.repository.TicketRepository;

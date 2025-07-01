@@ -1,8 +1,8 @@
 package com.myorganisation.traceboard.controller;
 
-import com.myorganisation.traceboard.dto.ErrorResponseDTO;
-import com.myorganisation.traceboard.dto.TicketRequestDTO;
-import com.myorganisation.traceboard.dto.TicketResponseDTO;
+import com.myorganisation.traceboard.dto.response.ErrorResponseDTO;
+import com.myorganisation.traceboard.dto.request.TicketRequestDTO;
+import com.myorganisation.traceboard.dto.response.TicketResponseDTO;
 import com.myorganisation.traceboard.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/ticket")
+@RequestMapping("/api/ticket")
 public class TicketController {
 
     @Autowired

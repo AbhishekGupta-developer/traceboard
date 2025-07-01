@@ -1,7 +1,7 @@
 package com.myorganisation.traceboard.service;
 
-import com.myorganisation.traceboard.dto.UserRequestDTO;
-import com.myorganisation.traceboard.dto.UserResponseDTO;
+import com.myorganisation.traceboard.dto.request.UserRequestDTO;
+import com.myorganisation.traceboard.dto.response.UserResponseDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
 

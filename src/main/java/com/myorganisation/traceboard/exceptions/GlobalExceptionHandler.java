@@ -1,6 +1,6 @@
 package com.myorganisation.traceboard.exceptions;
 
-import com.myorganisation.traceboard.dto.ErrorResponseDTO;
+import com.myorganisation.traceboard.dto.response.ErrorResponseDTO;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

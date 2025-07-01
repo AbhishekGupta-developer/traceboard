@@ -1,6 +1,6 @@
 package com.myorganisation.traceboard.controller;
 
-import com.myorganisation.traceboard.dto.ServerStatusResponseDTO;
+import com.myorganisation.traceboard.dto.response.ServerStatusResponseDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.Instant;
 
 @RestController
-@RequestMapping("api/")
+@RequestMapping("/api")
 public class ServerController {
 
     private final Instant serverStartTime;

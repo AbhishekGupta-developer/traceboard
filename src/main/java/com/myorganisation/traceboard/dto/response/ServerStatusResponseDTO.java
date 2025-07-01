@@ -1,4 +1,4 @@
-package com.myorganisation.traceboard.dto;
+package com.myorganisation.traceboard.dto.response;
 
 import lombok.Getter;
 

@@ -1,7 +1,8 @@
 package com.myorganisation.traceboard.service;
 
-import com.myorganisation.traceboard.dto.UserRequestDTO;
-import com.myorganisation.traceboard.dto.UserResponseDTO;
+import com.myorganisation.traceboard.config.SecurityConfig;
+import com.myorganisation.traceboard.dto.request.UserRequestDTO;
+import com.myorganisation.traceboard.dto.response.UserResponseDTO;
 import com.myorganisation.traceboard.exceptions.UserDoesNotExist;
 import com.myorganisation.traceboard.model.User;
 import com.myorganisation.traceboard.model.UserPhoto;
@@ -12,6 +13,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,13 +27,16 @@ import java.util.Base64;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     UserRepository userRepository;
 
     @Autowired
     UserPhotoRepository userPhotoRepository;
+
+    @Autowired
+    private SecurityConfig securityConfig;
 
     @Override
     @Transactional
@@ -124,10 +132,14 @@ public class UserServiceImpl implements UserService {
 
     //Helper method to copy UserRequestDTO to User
     public User copyUserRequestDTOToUser(UserRequestDTO userRequestDTO, User user) {
+        PasswordEncoder passwordEncoder = securityConfig.passwordEncoder();
+
         user.setName(userRequestDTO.getName());
         user.setPhone(userRequestDTO.getPhone());
         user.setEmail(userRequestDTO.getEmail());
         user.setRole(userRequestDTO.getRole());
+        user.setUsername(userRequestDTO.getUsername());
+        user.setPassword(passwordEncoder.encode(userRequestDTO.getPassword()));
 
         return user;
     }
@@ -140,6 +152,7 @@ public class UserServiceImpl implements UserService {
                 .phone(user.getPhone())
                 .email(user.getEmail())
                 .role(user.getRole())
+                .username(user.getUsername())
                 .build();
     }
 
@@ -156,4 +169,8 @@ public class UserServiceImpl implements UserService {
         return userResponseDTOList;
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+       return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username: " + username + " not found"));
+    }
 }

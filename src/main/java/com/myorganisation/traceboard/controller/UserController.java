@@ -1,7 +1,7 @@
 package com.myorganisation.traceboard.controller;
 
-import com.myorganisation.traceboard.dto.UserRequestDTO;
-import com.myorganisation.traceboard.dto.UserResponseDTO;
+import com.myorganisation.traceboard.dto.request.UserRequestDTO;
+import com.myorganisation.traceboard.dto.response.UserResponseDTO;
 import com.myorganisation.traceboard.model.enums.UserRole;
 import com.myorganisation.traceboard.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/user")
+@RequestMapping("/api/user")
 public class UserController {
 
     @Autowired
@@ -24,7 +24,7 @@ public class UserController {
     public ResponseEntity<UserResponseDTO> registerUser(
             @RequestParam String name,
             @RequestParam String email,
-            @RequestParam Long phone,
+            @RequestParam String phone,
             @RequestParam UserRole role,
             @RequestParam(required = false) MultipartFile photo
             ) {
