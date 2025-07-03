@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     UserPhotoRepository userPhotoRepository;
 
     @Autowired
-    private SecurityConfig securityConfig;
+    private PasswordEncoder passwordEncoder;
 
     @Override
     @Transactional
@@ -132,8 +132,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     //Helper method to copy UserRequestDTO to User
     public User copyUserRequestDTOToUser(UserRequestDTO userRequestDTO, User user) {
-        PasswordEncoder passwordEncoder = securityConfig.passwordEncoder();
-
         user.setName(userRequestDTO.getName());
         user.setPhone(userRequestDTO.getPhone());
         user.setEmail(userRequestDTO.getEmail());
