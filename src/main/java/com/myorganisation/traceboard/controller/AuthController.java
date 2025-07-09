@@ -1,6 +1,7 @@
 package com.myorganisation.traceboard.controller;
 
 import com.myorganisation.traceboard.dto.request.AuthRequestDTO;
+import com.myorganisation.traceboard.util.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,6 +18,9 @@ public class AuthController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private JWTUtil jwtUtil;
+
     @PostMapping("/authenticate")
     public String generateToken(@RequestBody AuthRequestDTO authRequestDTO) {
         try {
@@ -28,7 +32,8 @@ public class AuthController {
             );
 
             //Generate actual token
-            return "jwt:header.payload.signature";
+            return jwtUtil.generateToken(authRequestDTO.getUsername());
+
         } catch (AuthenticationException e) {
             System.out.println("An exception occurred: " + e.getMessage());
             throw new RuntimeException(e);
