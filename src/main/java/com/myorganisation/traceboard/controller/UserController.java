@@ -5,6 +5,7 @@ import com.myorganisation.traceboard.dto.UserResponseDTO;
 import com.myorganisation.traceboard.model.enums.UserRole;
 import com.myorganisation.traceboard.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
