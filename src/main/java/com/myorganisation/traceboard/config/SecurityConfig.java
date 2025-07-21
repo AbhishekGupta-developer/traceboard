@@ -36,8 +36,8 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.POST, "/api/v2/user").permitAll()
                                 .requestMatchers("/api/**").authenticated()
                                 .anyRequest().authenticated()
-                )
-                .httpBasic(withDefaults());
+                );
+
 
         return http.build();
     }
