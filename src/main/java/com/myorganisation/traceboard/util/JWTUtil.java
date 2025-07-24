@@ -41,6 +41,10 @@ public class JWTUtil {
     }
 
     public boolean validateToken(String username, UserDetails userDetails, String token) {
-        return false;
+        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    }
+
+    private boolean isTokenExpired(String token) {
+        return getClaims(token).getExpiration().before(new Date());
     }
 }
