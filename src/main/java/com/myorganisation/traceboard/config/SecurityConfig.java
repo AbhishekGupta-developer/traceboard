@@ -47,7 +47,6 @@ public class SecurityConfig {
     }
 
     @Bean
-    @Primary
     public UserDetailsService userDetailsService() {
         return new UserServiceImpl();
     }
