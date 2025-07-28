@@ -27,7 +27,7 @@ import java.util.Base64;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class UserServiceImpl implements UserService {
 
     @Autowired
     UserRepository userRepository;
@@ -167,8 +167,4 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userResponseDTOList;
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-       return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username: " + username + " not found"));
-    }
 }
