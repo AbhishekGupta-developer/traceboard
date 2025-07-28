@@ -2,11 +2,9 @@ package com.myorganisation.traceboard.config;
 
 import com.myorganisation.traceboard.filter.JwtAuthFilter;
 import com.myorganisation.traceboard.model.enums.UserRole;
-import com.myorganisation.traceboard.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;

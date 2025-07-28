@@ -1,6 +1,5 @@
 package com.myorganisation.traceboard.service;
 
-import com.myorganisation.traceboard.config.SecurityConfig;
 import com.myorganisation.traceboard.dto.request.UserRequestDTO;
 import com.myorganisation.traceboard.dto.response.UserResponseDTO;
 import com.myorganisation.traceboard.exceptions.UserDoesNotExist;
@@ -13,9 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
