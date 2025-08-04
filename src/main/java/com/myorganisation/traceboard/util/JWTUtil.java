@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -14,10 +15,15 @@ import java.util.Date;
 @Component
 public class JWTUtil {
 
+    public JWTUtil(@Value("${jwt.secret}") String jwtSecret) {
+        SECRET = jwtSecret;
+        KEY=Keys.hmacShaKeyFor(SECRET.getBytes());
+    }
+
     private final Logger logger = LoggerFactory.getLogger(JWTUtil.class);
 
-    private final String SECRET = "OHYcZrZ7cWJHBlwMOPolGQdyddkSRZyYY++Wff3z6g4=";
-    private final SecretKey KEY = Keys.hmacShaKeyFor(SECRET.getBytes());
+    private final String SECRET;
+    private final SecretKey KEY;
     private final long EXPIRATION_TIME = 1000 * 60 * 5; //Valid for 5 mins
 
     public String generateToken(String username) {
