@@ -34,7 +34,7 @@ public class AuthController {
             //Generate actual token
             return jwtUtil.generateToken(authRequestDTO.getUsername());
 
-        } catch (AuthenticationException e) {
+        } catch(AuthenticationException e) {
             System.out.println("An exception occurred: " + e.getMessage());
             throw new RuntimeException(e);
         }
