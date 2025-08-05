@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.hateoas.Link;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -39,7 +40,23 @@ public class TicketServiceImpl implements TicketService {
         //Manual Task (before cascading)
         //invoiceRepository.save(invoice);
 
-        return convertTicketToTicketResponseDTO(ticket);
+
+
+        TicketResponseDTO ticketResponseDTO =  convertTicketToTicketResponseDTO(ticket);
+
+        Link updateLink = Link.of("/api/ticket/" + ticketResponseDTO.getId())
+                .withRel("update")
+                .withType("PUT");
+
+        ticketResponseDTO.addLink(updateLink);
+
+        Link deleteLink = Link.of("/api/ticket?id=" + ticketResponseDTO.getId())
+                .withRel("remove")
+                .withType("DELETE");
+
+        ticketResponseDTO.addLink(deleteLink);
+
+        return ticketResponseDTO;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.myorganisation.traceboard.dto.response;
 
+import com.myorganisation.traceboard.hateoas.HateoasLinks;
 import com.myorganisation.traceboard.model.Invoice;
 import com.myorganisation.traceboard.model.enums.TicketCategory;
 import com.myorganisation.traceboard.model.enums.TicketPriority;
@@ -15,7 +16,7 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TicketResponseDTO {
+public class TicketResponseDTO extends HateoasLinks {
 
     private Long id;
     private String name;
