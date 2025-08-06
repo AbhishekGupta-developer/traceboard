@@ -28,10 +28,6 @@
 
 ### 👨‍💻 Developed by:
 - [Abhishek](https://github.com/AbhishekGupta-developer)
-- [Pranav sharma](https://github.com/pranavcoder2004gitgit )
-- [Shivani](https://github.com/shivani-developer89)
-- [Ejaz Ahmed Siddiqui](https://github.com/ejazahmedsiddiqui)
-- [Harshdeep Chandra](https://github.com/harshdeepchandra)
 
 ## 📦 Getting Started
 
