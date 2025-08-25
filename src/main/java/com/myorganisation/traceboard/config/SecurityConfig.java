@@ -32,8 +32,8 @@ public class SecurityConfig {
                         auth ->
                         auth
                                 .requestMatchers("/").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/actuator").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/actuator/**").permitAll()
+                                .requestMatchers("/actuator").permitAll()
+                                .requestMatchers("/actuator/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/authenticate").permitAll()
                                 .requestMatchers("/api").hasRole(String.valueOf(UserRole.ADMIN))
                                 .requestMatchers(HttpMethod.POST, "/api/v2/user").permitAll()
